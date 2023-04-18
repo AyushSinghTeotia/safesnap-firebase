@@ -1,9 +1,10 @@
 import React from 'react'
-import { getAuth,signInWithEmailAndPassword} from "firebase/auth"
+import { getAuth,signInWithEmailAndPassword,GoogleAuthProvider,signInWithPopup} from "firebase/auth"
 import { app } from '../firebase';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 const auth=getAuth(app);
+const googleProvide= new GoogleAuthProvider();
 
 export default function Loginpage() {
 const[email,setEmail]=useState("");
@@ -14,6 +15,11 @@ const singInUser=()=>{
       alert("Success",value).catch((err)=>{console.log(err)});
     })
    }
+const singupwithGoogle=()=>{
+  signInWithPopup(auth,googleProvide)
+  console.log("auth",auth);
+  console.log(googleProvide);
+}
   
   return (
     <>
@@ -45,6 +51,7 @@ const singInUser=()=>{
 
 
 <button type="button" onClick={singInUser} className="btn btn-primary btn-block mb-4">Sign In</button>
+<button type="button" onClick={singupwithGoogle}className="btn btn-danger btn-block mb-4 ml-3 ">Sigin with Google</button>
 
 
 <div className="text-center">
